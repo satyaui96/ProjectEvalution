@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +10,12 @@ import { FormBuilder, FormGroup, ValidationErrors, Validators } from '@angular/f
 })
 export class LoginComponent implements OnInit {
   loginForm:FormGroup;
-  usersDB:any= [ {userid : "abc@media.com",password:"abc123","username":"tom"}, {userid : "def@media.com",password:"def123","username":"dick"}];
+  usersDB:any= [  {userid : "12",password:"3","username":"tom"},{userid : "abc@media.com",password:"abc123","username":"tom"}, {userid : "def@media.com",password:"def123","username":"dick"}];
   errors:boolean=false;
   isSubmitted = false;
   errorOccured:boolean=false;
   errormessage:any;
-  constructor(private fb: FormBuilder) { 
+  constructor(private fb: FormBuilder,private router :Router, @Inject(DOCUMENT) private _document: Document) { 
    
   }
 
@@ -31,30 +33,41 @@ export class LoginComponent implements OnInit {
 get power() { return this.loginForm.get('password'); }
 
 onlogin(){
-if(this.loginForm.valid){
-
-  this.usersDB.forEach((element) => {
-    this.usersDB.find((ele) => {
-      if (element.userid === this.loginForm.get('userName').value &&  element.password === this.loginForm.get('password').value) {
-       console.log("login success");
-
-      }
-      else{
-        // this.loginForm.
-        console.log("unsucees");
-        this.errors=true;
-        this.errorOccured=true;
-        this.errormessage="Username or Password is wrong ";
-      }
-    });
+  
+  const result = this.usersDB.find( ({ userid ,password }) => (userid === this.loginForm.get('userName').value) && (password === this.loginForm.get('password').value));
+  console.log("result",result)
+if(result !== undefined){
+  console.log("login success");
+  
+  localStorage.setItem('isLoggedIn', 'true');
+  this.router.navigate(['/home'])
+  .then(() => {
+    window.location.reload();
   });
-}
-else{
- this.checkValid('userName','required');
- this.checkValid('password','required')
-}
+ 
+    // setTimeout(() => this.router.navigate(['/home']), 5000);
+
+ 
+}else {
+  console.log("unsucces")
+  this.errormessage="Username or Password is wrong ";
+  localStorage.setItem('isLoggedIn', 'false');
+  this.refreshPage();
 
 }
+}
+refreshPage() {
+
+  this._document.defaultView.location.reload();
+ 
+}
+reloadComponent() {
+  let currentUrl = '/home';
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.router.onSameUrlNavigation = 'reload';
+      this.router.navigate([currentUrl]);
+      this.refreshPage();
+  }
 checkValid(componentName: string, errorType: null | string = null): ValidationErrors | boolean {
   let component: any;
  
@@ -71,6 +84,12 @@ checkValid(componentName: string, errorType: null | string = null): ValidationEr
     return defaultValidator && component.errors[errorType];
   }
   return false;
+}
+reloadCurrentRoute() {
+  let currentUrl = this.router.url;
+  this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {
+      this.router.navigate([currentUrl]);
+  });
 }
 
 }
