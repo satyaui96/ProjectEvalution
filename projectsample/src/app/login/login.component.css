@@ -1,3 +1,9 @@
 .main-container{
     height: 560px;
+    
+}
+.main-form{
+ margin:auto;
+ padding-top:7rem;
+    width: 50%;
 }

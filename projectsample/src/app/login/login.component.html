@@ -1,1 +1,24 @@
-<div  class="container-fluid main-container"></div>
+<div class="container-fluid main-container">
+    <form class="main-form" *ngIf="loginForm" [formGroup]="loginForm">
+        <div class="form-row">
+            <div class="form-group col-md">
+                <label for="inputEmail4">Email</label>
+                <input type="email" class="form-control" id="inputEmail4" placeholder="Email" formControlName="userName"
+                    required>
+                <!-- <div *ngIf="checkValid('userName','required')" class="alert alert-danger">Please enter username</div> -->
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md">
+                <label for="inputPassword4">Password</label>
+                <input type="password" class="form-control" id="inputPassword4" placeholder="Password"
+                    formControlName="password">
+                <!-- <div *ngIf="checkValid('password','required')" class="alert alert-danger">Please enter Password</div> -->
+            </div>
+        </div>
+<div *ngIf="errorOccured" class="alert alert-danger">{{errormessage}}</div>
+
+        <button type="submit" class="btn btn-primary" (click)="onlogin()" >Sign in</button>
+    </form>
+   
+</div>
