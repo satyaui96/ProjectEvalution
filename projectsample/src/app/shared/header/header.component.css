@@ -1,0 +1,7 @@
+.main-nav{
+    display:flex;
+    justify-content: flex-end;    
+}
+.listitem{
+margin:20px;
+}
