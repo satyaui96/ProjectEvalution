@@ -10,6 +10,9 @@ import { LoginComponent } from './login/login.component';
 import { AboutusComponent } from './aboutus/aboutus.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { GalleryComponent } from './gallery/gallery.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { HttpClientModule } from '@angular/common/http';
+import { ErrorpageComponent } from './shared/errorpage/errorpage.component';
 
 @NgModule({
   declarations: [
@@ -20,15 +23,17 @@ import { GalleryComponent } from './gallery/gallery.component';
     LoginComponent,
     AboutusComponent,
     GalleryComponent,
+    ErrorpageComponent,
    
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

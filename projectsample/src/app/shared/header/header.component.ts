@@ -24,7 +24,7 @@ export class HeaderComponent implements OnInit {
   }
   onSignout(){
     sessionStorage.setItem('isLoggedIn', 'false');
-    // this.refreshPage();
+    this.refreshPage();
     this.router.navigateByUrl('/home');
     
   }
