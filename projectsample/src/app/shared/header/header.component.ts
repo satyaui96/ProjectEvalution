@@ -17,10 +17,11 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
    this.userData=sessionStorage.getItem('userData');
-
+if(this.userData){
    let res=JSON.parse(this.userData);
    console.log(res['username'])
    this.userID=res['username'];
+  }
 //    this.loginCheck= sessionStorage.getItem('isLoggedIn');
 //    if(this.loginCheck === "true"){
 // this.loginHeader=true;
