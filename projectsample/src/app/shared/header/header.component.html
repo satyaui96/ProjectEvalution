@@ -31,7 +31,9 @@
           <li class="nav-item">
             <a class="nav-link listitem" routerLink="/gallery">Gallery</a>
           </li>
-       
+          <li class="nav-item">
+            <h5 class="nav-link listitem" >Welcome to {{userID | uppercase }}</h5>
+          </li>
         <button type="button" class="btn btn-primary listitem" (click)="onSignout()">SignOut</button>
         </ul>
       </div>

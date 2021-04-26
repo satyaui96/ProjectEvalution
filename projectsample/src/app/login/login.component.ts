@@ -37,14 +37,17 @@ onlogin(){
   const result = this.usersDB.find( ({ userid ,password }) => (userid === this.loginForm.get('userName').value) && (password === this.loginForm.get('password').value));
   console.log("result",result)
 if(result !== undefined){
+  debugger;
   console.log("login success");
   
   sessionStorage.setItem('isLoggedIn', 'true');
+  sessionStorage.setItem('userData', JSON.stringify(result));
+
   this.router.navigate(['/home'])
   .then(() => {
     window.location.reload();
   });
- 
+  // this.router.navigate(['/home']);
     // setTimeout(() => this.router.navigate(['/home']), 5000);
 
  

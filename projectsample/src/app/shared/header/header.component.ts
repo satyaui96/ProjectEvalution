@@ -11,10 +11,16 @@ export class HeaderComponent implements OnInit {
   loginCheck:any=false;
   // loginHeader: boolean;
   @Input()  loginHeader;
+  userData: any;
+  userID:any;
   constructor(private router: Router,@Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {
-   
+   this.userData=sessionStorage.getItem('userData');
+
+   let res=JSON.parse(this.userData);
+   console.log(res['username'])
+   this.userID=res['username'];
 //    this.loginCheck= sessionStorage.getItem('isLoggedIn');
 //    if(this.loginCheck === "true"){
 // this.loginHeader=true;
@@ -24,6 +30,7 @@ export class HeaderComponent implements OnInit {
   }
   onSignout(){
     sessionStorage.setItem('isLoggedIn', 'false');
+    sessionStorage.clear();
     this.refreshPage();
     this.router.navigateByUrl('/home');
     
