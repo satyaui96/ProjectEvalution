@@ -10,8 +10,8 @@ export class AppComponent implements OnInit {
   loginHeader: boolean;
   title = 'projectsample';
   ngOnInit(): void {
- 
-   this.loginCheck= localStorage.getItem('isLoggedIn');
+   
+   this.loginCheck= sessionStorage.getItem('isLoggedIn');
    if(this.loginCheck === "true"){
 this.loginHeader=true;
    }else{

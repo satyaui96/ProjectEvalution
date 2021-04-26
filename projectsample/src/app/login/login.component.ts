@@ -39,7 +39,7 @@ onlogin(){
 if(result !== undefined){
   console.log("login success");
   
-  localStorage.setItem('isLoggedIn', 'true');
+  sessionStorage.setItem('isLoggedIn', 'true');
   this.router.navigate(['/home'])
   .then(() => {
     window.location.reload();
@@ -51,7 +51,7 @@ if(result !== undefined){
 }else {
   console.log("unsucces")
   this.errormessage="Username or Password is wrong ";
-  localStorage.setItem('isLoggedIn', 'false');
+  sessionStorage.setItem('isLoggedIn', 'false');
   this.refreshPage();
 
 }

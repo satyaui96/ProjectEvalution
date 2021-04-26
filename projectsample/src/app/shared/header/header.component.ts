@@ -14,8 +14,8 @@ export class HeaderComponent implements OnInit {
   constructor(private router: Router,@Inject(DOCUMENT) private _document: Document) { }
 
   ngOnInit(): void {
-//     alert(this.loginHeader)
-//    this.loginCheck= localStorage.getItem('isLoggedIn');
+   
+//    this.loginCheck= sessionStorage.getItem('isLoggedIn');
 //    if(this.loginCheck === "true"){
 // this.loginHeader=true;
 //    }else{
@@ -23,10 +23,10 @@ export class HeaderComponent implements OnInit {
 //    }
   }
   onSignout(){
-    // this.router.navigateByUrl('/home');
-    localStorage.setItem('isLoggedIn', 'false');
+    sessionStorage.setItem('isLoggedIn', 'false');
     this.refreshPage();
     this.router.navigateByUrl('/home');
+    
   }
   refreshPage() {
     this._document.defaultView.location.reload();
